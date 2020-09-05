@@ -99,7 +99,8 @@ const charList = this.state.userInput.split('').map((ch,index) => {
 });
 
       const style = {
-        backgroundColor: 'white',
+        backgroundColor: 'green',
+        color:'white',
         font: 'inherit',
         border: '1px solid blue',
         padding: '8px'
@@ -119,12 +120,27 @@ const charList = this.state.userInput.split('').map((ch,index) => {
           })}
           </div>
         )
+        style.backgroundColor = 'blue';
+      }
+
+      const classes = [];
+      if (this.state.persons.length<=2){
+        classes.push('red');
+      }
+      if(this.state.persons.length<=1){
+        classes.push('bold');
+      }
+
+      let msg = 'This is working!';
+      if (this.state.persons.length == 0){
+        msg = 'This shit ain\'t working';
       }
 
       return (
         <div className="App">
           <h1>I'm a React App</h1>
           <p>Welcome</p>
+          <p className={classes.join(' ')}>{msg}</p>
           <button onClick={this.togglePersonsHandler} style={style}>Toggle Persons</button>
           {persons}<br/>
           <input type="text" onChange={this.userInputhandler} value={this.state.userInput}  />
