@@ -1,43 +1,45 @@
 import React, { useState,Component} from 'react';
 //import logo from './logo.svg';
 import './App.css';
-import Person from './Person/Person';
-import Validation from './asst2/Validation'
-import Char from './Char/Char';
+import Person from '../Components/Persons/Person/Person';
+import Persons from '../Components/Persons/Persons';
+import Validation from '../asst2/Validation';
+import Char from '../Char/Char';
+import Cockpit from '../Components/Cockpit/Cockpit'
 
 
-const app = props => {
-  const [personState, setpersonState] = useState({
-    persons: [
-            { name:"Mark", age:"28"},
-            { name:"Manu", age:"29"},
-            { name:"Stephanie", age:"26"}
-          ]
-        });
+// const app = props => {
+//   const [personState, setpersonState] = useState({
+//     persons: [
+//             { name:"Mark", age:"28"},
+//             { name:"Manu", age:"29"},
+//             { name:"Stephanie", age:"26"}
+//           ]
+//         });
 
-        const switchHandler = ()=> {
-          //       //console.log("was clicked");
-                setpersonState ({
-                  persons: [
-                    { name:"Maxi", age:"28"},
-                    { name:"Manu", age:"29"},
-                    { name:"Stephanie", age:"23"}
-                  ]
-                })
-              }
+//         const switchHandler = ()=> {
+//           //       //console.log("was clicked");
+//                 setpersonState ({
+//                   persons: [
+//                     { name:"Maxi", age:"28"},
+//                     { name:"Manu", age:"29"},
+//                     { name:"Stephanie", age:"23"}
+//                   ]
+//                 })
+//               }
 
-  return (
-      <div className="App">
-        <h1>I'm a React App</h1>
-        <p>Welcome</p>
-        <button onClick={switchHandler}>Switch Name</button>
-        <Person name={personState.persons[0].name} age={personState.persons[0].age}/>
-        <Person name={personState.persons[1].name} age={personState.persons[1].age}/>
-        <Person name={personState.persons[2].name} age={personState.persons[2].age}/>
-      </div>
-    );
+//   return (
+//       <div className="App">
+//         <h1>I'm a React App</h1>
+//         <p>Welcome</p>
+//         <button onClick={switchHandler}>Switch Name</button>
+//         <Person name={personState.persons[0].name} age={personState.persons[0].age}/>
+//         <Person name={personState.persons[1].name} age={personState.persons[1].age}/>
+//         <Person name={personState.persons[2].name} age={personState.persons[2].age}/>
+//       </div>
+//     );
   
-}
+// }
 
 class App extends Component {
   state = {
@@ -111,37 +113,22 @@ const charList = this.state.userInput.split('').map((ch,index) => {
       if (this.state.showPersons){
         persons = (
           <div>
-          {this.state.persons.map((person,index) => {
-            return <Person 
-            click={() => this.deletePersonsHandler(index)}
-            name={person.name} age={person.age}
-            key={person.id} 
-            changed={(event) => this.nameChange(event, person.id)}/>
-          })}
+          <Persons
+          persons = {this.state.persons}
+          clicked={this.deletePersonsHandler}
+          changed={this.nameChange} />
           </div>
         )
         style.backgroundColor = 'blue';
       }
 
-      const classes = [];
-      if (this.state.persons.length<=2){
-        classes.push('red');
-      }
-      if(this.state.persons.length<=1){
-        classes.push('bold');
-      }
-
-      let msg = 'This is working!';
-      if (this.state.persons.length == 0){
-        msg = 'This shit ain\'t working';
-      }
+      
 
       return (
         <div className="App">
-          <h1>I'm a React App</h1>
-          <p>Welcome</p>
-          <p className={classes.join(' ')}>{msg}</p>
-          <button onClick={this.togglePersonsHandler} style={style}>Toggle Persons</button>
+          <Cockpit persons={this.state.persons}
+          clicked={this.togglePersonsHandler}
+          showPersons={this.state.showPersons}/>
           {persons}<br/>
           <input type="text" onChange={this.userInputhandler} value={this.state.userInput}  />
             <p>{this.state.userInput}</p>
